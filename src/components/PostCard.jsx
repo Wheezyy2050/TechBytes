@@ -22,7 +22,7 @@ export default function PostCard({ post }) {
           <h2 className="font-bold mb-2 text-black group-hover:opacity-60 transition-opacity">{post.title}</h2>
           <p className="text-xs text-[#666] leading-relaxed flex-1">{post.excerpt}</p>
           <div className="flex items-center gap-2 text-[10px] text-[#999] mt-4 pt-4 border-t border-[#e0e0e0]">
-            <span>Churchill Mgamba</span>
+            <span>{post.author || 'Churchill Mgamba'}</span>
             <span>·</span>
             <time>{date}</time>
           </div>

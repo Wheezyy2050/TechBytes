@@ -34,7 +34,7 @@ export default async function HomePage() {
               <h2 className="text-3xl font-bold mb-3 text-black group-hover:opacity-60 transition-opacity">{featured.title}</h2>
               <p className="text-[#666] leading-relaxed mb-4">{featured.excerpt}</p>
               <div className="flex items-center gap-3 text-xs text-[#999]">
-                <span>Churchill Mgamba</span>
+                <span>{featured.author || 'Churchill Mgamba'}</span>
                 <span>·</span>
                 <time>{new Date(featured.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
               </div>

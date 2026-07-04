@@ -10,6 +10,16 @@ const FEEDS = [
   { url: 'https://feeds.arstechnica.com/arstechnica/index' },
 ]
 
+const CATEGORIES = [
+  { slug: 'ai', name: 'AI & Machine Learning' },
+  { slug: 'web-dev', name: 'Web Development' },
+  { slug: 'mobile', name: 'Mobile' },
+  { slug: 'security', name: 'Cybersecurity' },
+  { slug: 'tech-news', name: 'General Tech' },
+  { slug: 'entertainment', name: 'Entertainment' },
+  { slug: 'science', name: 'Science' },
+]
+
 function slugify(text) {
   return text
     .toLowerCase()
@@ -22,10 +32,14 @@ function slugify(text) {
 
 function mapCategory(title, description) {
   const text = `${title} ${description}`.toLowerCase()
-  if (/ai|artificial intelligence|gpt|machine learning|deep learning|neural|llm|openai|chatgpt|claude|gemini/.test(text)) return 'ai'
-  if (/hack|breach|vulnerability|cyber|malware|ransomware|security|privacy|encryption|phishing/.test(text)) return 'security'
-  if (/react|javascript|framework|typescript|next\.js|web dev|css|frontend|backend|api|node\.js|npm/.test(text)) return 'web-dev'
-  if (/ios|android|mobile|iphone|smartphone|app store|google play/.test(text)) return 'mobile'
+
+  if (/\b(ai|artificial intelligence|gpt|machine learning|deep learning|neural network|llm|large language model|openai|chatgpt|claude|gemini|llama)\b/.test(text)) return 'ai'
+  if (/\b(hack|breach|vulnerability|cyber|malware|ransomware|security|privacy|encryption|phishing|zero day|exploit)\b/.test(text)) return 'security'
+  if (/\b(react|javascript|framework|typescript|next\.js|node\.js|npm|css|frontend|backend|api|web dev|webpack|babel)\b/.test(text)) return 'web-dev'
+  if (/\b(ios|android|mobile|iphone|smartphone|app store|google play|ipad|samsung)\b/.test(text)) return 'mobile'
+  if (/\b(movie|film|review|trailer|hollywood|netflix|disney|game|gaming|playstation|xbox|nintendo|streaming|tv show|entertainment|album|song|music)\b/.test(text)) return 'entertainment'
+  if (/\b(science|research|study|space|nasa|physics|biology|climate|quantum|dna|gene|astronomy|particle)\b/.test(text)) return 'science'
+
   return 'tech-news'
 }
 
@@ -43,8 +57,32 @@ function stripHtml(html) {
   return html?.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() || ''
 }
 
+function extractImage(item) {
+  if (item.enclosure?.url && item.enclosure?.type?.startsWith('image/')) {
+    return item.enclosure.url
+  }
+
+  if (item['media:content']?.$?.url) {
+    return item['media:content'].$.url
+  }
+
+  const html = item.content || item.description || ''
+  const match = html.match(/<img[^>]+src=["']([^"']+)["']/)
+  if (match) return match[1]
+
+  return ''
+}
+
 export async function GET() {
   const results = { fetched: 0, skipped: 0, published: 0, errors: [] }
+
+  for (const cat of CATEGORIES) {
+    await prisma.category.upsert({
+      where: { slug: cat.slug },
+      update: { name: cat.name },
+      create: { slug: cat.slug, name: cat.name },
+    })
+  }
 
   const categoryMap = new Map()
   const cats = await prisma.category.findMany()
@@ -73,6 +111,7 @@ export async function GET() {
         const pubDate = item.pubDate ? new Date(item.pubDate) : new Date()
         const categorySlug = mapCategory(title, description)
         const categoryId = categoryMap.get(categorySlug) || null
+        const featuredImage = extractImage(item)
 
         await prisma.post.create({
           data: {
@@ -80,6 +119,7 @@ export async function GET() {
             slug,
             content: description,
             excerpt,
+            featuredImage,
             published: true,
             createdAt: pubDate,
             categoryId,

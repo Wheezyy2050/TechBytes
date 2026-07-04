@@ -20,6 +20,8 @@ async function main() {
     { name: 'Mobile', slug: 'mobile' },
     { name: 'Cybersecurity', slug: 'security' },
     { name: 'Tech News', slug: 'tech-news' },
+    { name: 'Entertainment', slug: 'entertainment' },
+    { name: 'Science', slug: 'science' },
   ]
 
   for (const cat of categories) {

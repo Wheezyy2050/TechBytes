@@ -7,10 +7,10 @@ export default function Header() {
       <Link href="/" className="font-bold text-lg tracking-tight text-black">
         Tech<span className="text-black">Bytes</span>
       </Link>
-      <nav className="flex gap-8 text-sm text-[#666]">
-        <Link href="/" className="hover:text-black transition-colors">Home</Link>
-        <a href="https://github.com/Wheezyy2050" target="_blank" rel="noreferrer" className="hover:text-black transition-colors">GitHub</a>
-        <a href="https://linkedin.com/in/churchillmgamba" target="_blank" rel="noreferrer" className="hover:text-black transition-colors">LinkedIn</a>
+      <nav className="flex gap-8 text-sm text-black">
+        <Link href="/" className="hover:underline">Home</Link>
+        <a href="https://github.com/Wheezyy2050" target="_blank" rel="noreferrer" className="hover:underline">GitHub</a>
+        <a href="https://linkedin.com/in/churchillmgamba" target="_blank" rel="noreferrer" className="hover:underline">LinkedIn</a>
       </nav>
     </header>
   )
