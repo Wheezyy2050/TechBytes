@@ -28,8 +28,11 @@ model Post {
   excerpt        String
   featuredImage  String   @default("")
   published      Boolean  @default(true)
+  author         String   @default("")
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   categoryId     Int?
   category       Category? @relation(fields: [categoryId], references: [id])
+  sourceUrl      String   @default("")
+  sourceName     String   @default("")
 }

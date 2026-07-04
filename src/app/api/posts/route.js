@@ -10,9 +10,9 @@ export async function GET() {
 }
 
 export async function POST(req) {
-  const { title, slug, content, excerpt, published, featuredImage, categoryId } = await req.json()
+  const { title, slug, content, excerpt, published, featuredImage, categoryId, author } = await req.json()
   const post = await prisma.post.create({
-    data: { title, slug, content, excerpt, published: published ?? true, featuredImage: featuredImage || '', categoryId: categoryId || null },
+    data: { title, slug, content, excerpt, published: published ?? true, featuredImage: featuredImage || '', categoryId: categoryId || null, author: author || '' },
     include: { category: true },
   })
   return NextResponse.json(post)
