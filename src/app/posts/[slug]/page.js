@@ -17,25 +17,25 @@ export default async function PostPage({ params }) {
   return (
     <article className="max-w-3xl mx-auto px-8 py-12">
       <div className="mb-8">
-        <Link href="/" className="text-xs text-[#555] hover:text-[#e8ff47] transition-colors">← Back to News</Link>
+        <Link href="/" className="text-xs text-[#999] hover:text-black transition-colors">← Back to News</Link>
       </div>
 
       {post.featuredImage && (
-        <div className="rounded-xl overflow-hidden mb-8 border border-[#1e1e1e]">
+        <div className="rounded-xl overflow-hidden mb-8 border border-[#e0e0e0]">
           <img src={post.featuredImage} alt={post.title} className="w-full h-64 md:h-80 object-cover" />
         </div>
       )}
 
       {post.category && (
-        <span className="inline-block text-xs text-[#e8ff47] uppercase tracking-wider mb-3 border border-[#e8ff47]/20 bg-[#e8ff47]/5 px-3 py-1 rounded">
+        <span className="inline-block text-xs text-black uppercase tracking-wider mb-3 border border-black/20 bg-black/5 px-3 py-1 rounded font-medium">
           {post.category.name}
         </span>
       )}
 
-      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+      <h1 className="text-4xl font-bold mb-4 text-black">{post.title}</h1>
 
-      <div className="flex items-center gap-3 text-sm text-[#555] mb-10 pb-6 border-b border-[#1e1e1e]">
-        <span className="font-medium text-[#f0ede8]">Churchill Mgamba</span>
+      <div className="flex items-center gap-3 text-sm text-[#999] mb-10 pb-6 border-b border-[#e0e0e0]">
+        <span className="font-medium text-black">Churchill Mgamba</span>
         <span>·</span>
         <time>{date}</time>
       </div>

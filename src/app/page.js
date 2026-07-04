@@ -13,27 +13,27 @@ export default async function HomePage() {
   return (
     <div className="max-w-6xl mx-auto px-8 py-12">
       <div className="mb-12">
-        <h1 className="text-5xl font-bold mb-2">Tech Bytes</h1>
-        <p className="text-[#888] text-lg">Your daily dose of tech news.</p>
+        <h1 className="text-5xl font-bold mb-2 text-black">Tech Bytes</h1>
+        <p className="text-[#666] text-lg">Your daily dose of tech news.</p>
       </div>
 
       {featured && (
         <a href={`/posts/${featured.slug}`} className="block group mb-12">
-          <article className="grid md:grid-cols-2 gap-8 border border-[#1e1e1e] bg-[#111] rounded-xl overflow-hidden hover:border-[#e8ff47]/30 transition-all">
-            <div className="h-64 md:h-full bg-[#1a1a1a] overflow-hidden">
+          <article className="grid md:grid-cols-2 gap-8 border border-[#e0e0e0] bg-white rounded-xl overflow-hidden hover:border-black transition-all">
+            <div className="h-64 md:h-full bg-[#f0f0f0] overflow-hidden">
               {featured.featuredImage ? (
                 <img src={featured.featuredImage} alt={featured.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-4xl text-[#333]">📰</div>
+                <div className="w-full h-full flex items-center justify-center text-4xl text-[#999]">📰</div>
               )}
             </div>
             <div className="p-8 flex flex-col justify-center">
               {featured.category && (
-                <span className="text-xs text-[#e8ff47] uppercase tracking-wider mb-3">{featured.category.name}</span>
+                <span className="text-xs text-black uppercase tracking-wider mb-3 font-medium">{featured.category.name}</span>
               )}
-              <h2 className="text-3xl font-bold mb-3 group-hover:text-[#e8ff47] transition-colors">{featured.title}</h2>
-              <p className="text-[#888] leading-relaxed mb-4">{featured.excerpt}</p>
-              <div className="flex items-center gap-3 text-xs text-[#555]">
+              <h2 className="text-3xl font-bold mb-3 text-black group-hover:opacity-60 transition-opacity">{featured.title}</h2>
+              <p className="text-[#666] leading-relaxed mb-4">{featured.excerpt}</p>
+              <div className="flex items-center gap-3 text-xs text-[#999]">
                 <span>Churchill Mgamba</span>
                 <span>·</span>
                 <time>{new Date(featured.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
@@ -47,7 +47,7 @@ export default async function HomePage() {
         {posts.slice(1).map(post => <PostCard key={post.id} post={post} />)}
       </div>
 
-      {posts.length === 0 && <p className="text-[#555] text-center py-20">No posts yet. Check back soon!</p>}
+      {posts.length === 0 && <p className="text-[#999] text-center py-20">No posts yet. Check back soon!</p>}
     </div>
   )
 }

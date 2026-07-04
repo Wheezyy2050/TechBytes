@@ -20,7 +20,7 @@ export default function AdminLayout({ children }) {
       .finally(() => setLoading(false))
   }, [])
 
-  if (loading) return <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center text-[#555]">Loading...</div>
+  if (loading) return <div className="min-h-screen bg-white flex items-center justify-center text-[#999]">Loading...</div>
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' })
@@ -28,19 +28,19 @@ export default function AdminLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-white">
       {!pathname.includes('/login') && (
         <div className="flex">
-          <aside className="w-56 border-r border-[#1e1e1e] bg-[#111] min-h-screen p-6 flex flex-col justify-between">
+          <aside className="w-56 border-r border-[#e0e0e0] bg-[#fafafa] min-h-screen p-6 flex flex-col justify-between">
             <div>
-              <Link href="/admin" className="font-bold text-lg mb-8 block">CMS</Link>
+              <Link href="/admin" className="font-bold text-lg mb-8 block text-black">CMS</Link>
               <nav className="space-y-3 text-sm">
-                <Link href="/admin" className={`block py-2 px-3 rounded ${pathname === '/admin' ? 'bg-[#e8ff47]/10 text-[#e8ff47]' : 'text-[#555] hover:text-white'}`}>Dashboard</Link>
-                <Link href="/admin/posts" className={`block py-2 px-3 rounded ${pathname.includes('/posts') ? 'bg-[#e8ff47]/10 text-[#e8ff47]' : 'text-[#555] hover:text-white'}`}>Posts</Link>
-                <a href="/" target="_blank" className="block py-2 px-3 text-[#555] hover:text-white">View Site →</a>
+                <Link href="/admin" className={`block py-2 px-3 rounded ${pathname === '/admin' ? 'bg-black text-white' : 'text-[#666] hover:text-black'}`}>Dashboard</Link>
+                <Link href="/admin/posts" className={`block py-2 px-3 rounded ${pathname.includes('/posts') ? 'bg-black text-white' : 'text-[#666] hover:text-black'}`}>Posts</Link>
+                <a href="/" target="_blank" className="block py-2 px-3 text-[#666] hover:text-black">View Site →</a>
               </nav>
             </div>
-            <button onClick={handleLogout} className="text-sm text-red-400 hover:text-red-300">Logout</button>
+            <button onClick={handleLogout} className="text-sm text-red-500 hover:text-red-700">Logout</button>
           </aside>
           <main className="flex-1 p-8">{children}</main>
         </div>

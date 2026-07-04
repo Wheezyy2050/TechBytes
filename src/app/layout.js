@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
       <body>
         <Header />
         <main className="min-h-screen">{children}</main>
-        <footer className="border-t border-[#1e1e1e] py-6 px-8 text-center text-sm text-[#555]">
+        <footer className="border-t border-[#e0e0e0] py-6 px-8 text-center text-sm text-[#999]">
           &copy; {new Date().getFullYear()} Churchill Mgamba
         </footer>
       </body>
