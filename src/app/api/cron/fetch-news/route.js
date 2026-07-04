@@ -57,18 +57,31 @@ function stripHtml(html) {
   return html?.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() || ''
 }
 
+function decodeHtmlEntities(str) {
+  if (!str) return str
+  return str
+    .replace(/&#038;/g, '&')
+    .replace(/&amp;/g, '&')
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#x27;/g, "'")
+    .replace(/&#x2F;/g, '/')
+}
+
 function extractImage(item) {
   if (item.enclosure?.url && item.enclosure?.type?.startsWith('image/')) {
-    return item.enclosure.url
+    return decodeHtmlEntities(item.enclosure.url)
   }
 
   if (item['media:content']?.$?.url) {
-    return item['media:content'].$.url
+    return decodeHtmlEntities(item['media:content'].$.url)
   }
 
   const html = item.content || item.description || ''
   const match = html.match(/<img[^>]+src=["']([^"']+)["']/)
-  if (match) return match[1]
+  if (match) return decodeHtmlEntities(match[1])
 
   return ''
 }

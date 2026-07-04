@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma'
 import PostCard from '@/components/PostCard'
+import { decodeHtmlEntities } from '@/lib/utils'
 
 export default async function HomePage() {
   const posts = await prisma.post.findMany({
@@ -21,8 +22,8 @@ export default async function HomePage() {
         <a href={`/posts/${featured.slug}`} className="block group mb-12">
           <article className="grid md:grid-cols-2 gap-8 border border-[#e0e0e0] bg-white rounded-xl overflow-hidden hover:border-black transition-all">
             <div className="h-64 md:h-full bg-[#f0f0f0] overflow-hidden">
-              {featured.featuredImage ? (
-                <img src={featured.featuredImage} alt={featured.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              {decodeHtmlEntities(featured.featuredImage) ? (
+                <img src={decodeHtmlEntities(featured.featuredImage)} alt={featured.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-4xl text-[#999]">📰</div>
               )}

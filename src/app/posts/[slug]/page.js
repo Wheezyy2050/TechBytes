@@ -2,6 +2,7 @@ import prisma from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import Markdown from 'react-markdown'
 import Link from 'next/link'
+import { decodeHtmlEntities } from '@/lib/utils'
 
 export default async function PostPage({ params }) {
   const post = await prisma.post.findUnique({
@@ -13,6 +14,7 @@ export default async function PostPage({ params }) {
   const date = new Date(post.createdAt).toLocaleDateString('en-US', {
     year: 'numeric', month: 'long', day: 'numeric',
   })
+  const imageUrl = decodeHtmlEntities(post.featuredImage)
 
   return (
     <article className="max-w-3xl mx-auto px-8 py-12">
@@ -20,9 +22,9 @@ export default async function PostPage({ params }) {
         <Link href="/" className="text-xs text-[#999] hover:text-black transition-colors">← Back to News</Link>
       </div>
 
-      {post.featuredImage && (
+      {imageUrl && (
         <div className="rounded-xl overflow-hidden mb-8 border border-[#e0e0e0]">
-          <img src={post.featuredImage} alt={post.title} className="w-full h-64 md:h-80 object-cover" />
+          <img src={imageUrl} alt={post.title} className="w-full h-64 md:h-80 object-cover" />
         </div>
       )}
 

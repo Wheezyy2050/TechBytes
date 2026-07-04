@@ -1,16 +1,18 @@
 import Link from 'next/link'
+import { decodeHtmlEntities } from '@/lib/utils'
 
 export default function PostCard({ post }) {
   const date = new Date(post.createdAt).toLocaleDateString('en-US', {
     year: 'numeric', month: 'short', day: 'numeric',
   })
+  const imageUrl = decodeHtmlEntities(post.featuredImage)
 
   return (
     <Link href={`/posts/${post.slug}`} className="block group">
       <article className="border border-[#e0e0e0] bg-white rounded-xl overflow-hidden hover:border-black transition-all h-full flex flex-col">
         <div className="h-44 bg-[#f0f0f0] overflow-hidden">
-          {post.featuredImage ? (
-            <img src={post.featuredImage} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          {imageUrl ? (
+            <img src={imageUrl} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-3xl text-[#999]">📰</div>
           )}
