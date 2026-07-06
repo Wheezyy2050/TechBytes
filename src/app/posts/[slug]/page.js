@@ -22,11 +22,13 @@ export default async function PostPage({ params }) {
         <Link href="/" className="text-xs text-[#4a4a4a] hover:text-black transition-colors">← Back to News</Link>
       </div>
 
-      {imageUrl && (
-        <div className="rounded-xl overflow-hidden mb-8 border border-[#e0e0e0]">
+      <div className="rounded-xl overflow-hidden mb-8 border border-[#e0e0e0]">
+        {imageUrl ? (
           <img src={imageUrl} alt={post.title} className="w-full h-64 md:h-80 object-cover" />
-        </div>
-      )}
+        ) : (
+          <div className="w-full h-64 md:h-80 placeholder-gradient" />
+        )}
+      </div>
 
       {post.category && (
         <span className="inline-block text-xs text-black uppercase tracking-wider mb-3 border border-black/20 bg-black/5 px-3 py-1 rounded font-medium">
