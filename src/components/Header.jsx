@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Header() {
   return (
-    <header className="border-b border-[#e0e0e0] px-8 py-5 flex items-center justify-between bg-white">
+    <header className="border-b border-[#e0e0e0] px-10 py-6 flex items-center justify-between bg-white">
       <Link href="/" className="font-bold text-lg tracking-tight text-black">
         Tech<span className="text-black">Bytes</span>
       </Link>

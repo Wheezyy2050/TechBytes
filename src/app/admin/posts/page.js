@@ -27,20 +27,20 @@ export default function AdminPosts() {
       </div>
       <div className="space-y-3">
         {posts.map(post => (
-          <div key={post.id} className="border border-[#e0e0e0] bg-white p-5 rounded-lg flex items-center justify-between">
+          <div key={post.id} className="border border-[#e0e0e0] bg-white p-5 rounded-lg shadow-sm flex items-center justify-between">
             <div>
               <h3 className="font-bold">{post.title}</h3>
-              <p className="text-xs text-[#666] mt-1">
+              <p className="text-xs text-[#333] mt-1">
                 {post.category?.name || 'Uncategorized'} · {post.published ? 'Published' : 'Draft'} · {new Date(post.createdAt).toLocaleDateString()}
               </p>
             </div>
             <div className="flex gap-3">
               <Link href={`/admin/posts/${post.id}/edit`} className="text-sm text-black hover:underline">Edit</Link>
-              <button onClick={() => handleDelete(post.id)} className="text-sm text-red-500 hover:underline">Delete</button>
+              <button onClick={() => handleDelete(post.id)} className="text-sm text-[#4a4a4a] hover:text-black hover:underline">Delete</button>
             </div>
           </div>
         ))}
-        {posts.length === 0 && <p className="text-[#666]">No posts yet.</p>}
+        {posts.length === 0 && <p className="text-[#333]">No posts yet.</p>}
       </div>
     </div>
   )

@@ -19,7 +19,7 @@ export default async function PostPage({ params }) {
   return (
     <article className="max-w-3xl mx-auto px-8 py-12">
       <div className="mb-8">
-        <Link href="/" className="text-xs text-[#999] hover:text-black transition-colors">← Back to News</Link>
+        <Link href="/" className="text-xs text-[#4a4a4a] hover:text-black transition-colors">← Back to News</Link>
       </div>
 
       {imageUrl && (
@@ -36,14 +36,14 @@ export default async function PostPage({ params }) {
 
       <h1 className="text-4xl font-bold mb-4 text-black">{post.title}</h1>
 
-      <div className="flex items-center gap-3 text-sm text-[#999] mb-6 pb-6 border-b border-[#e0e0e0]">
+      <div className="flex items-center gap-3 text-sm text-[#4a4a4a] mb-6 pb-6 border-b border-[#e0e0e0]">
         <span className="font-medium text-black">{post.author || 'Churchill Mgamba'}</span>
         <span>·</span>
         <time>{date}</time>
       </div>
 
       {post.sourceUrl && post.sourceName && (
-        <div className="text-xs text-[#777] mb-8 pb-4 border-b border-[#e0e0e0]">
+        <div className="text-xs text-[#4a4a4a] mb-8 pb-4 border-b border-[#e0e0e0]">
           Originally published by {post.sourceName} —{' '}
           <a href={post.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-black">
             Read the full article
