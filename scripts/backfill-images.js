@@ -17,12 +17,18 @@ const { PrismaClient } = require('@prisma/client')
 const Parser = require('rss-parser')
 
 const prisma = new PrismaClient()
-const parser = new Parser()
+const parser = new Parser({
+  customFields: {
+    item: ['media:content'],
+  },
+})
 
 const FEEDS = [
+  'https://9to5google.com/feed/',
+  'https://www.androidauthority.com/feed/',
+  'https://www.gsmarena.com/rss-news-reviews.php3',
   'https://techcrunch.com/feed/',
   'https://www.theverge.com/rss/index.xml',
-  'https://feeds.arstechnica.com/arstechnica/index',
 ]
 
 function decodeHtmlEntities(str) {
@@ -38,16 +44,41 @@ function decodeHtmlEntities(str) {
     .replace(/&#x2F;/g, '/')
 }
 
+function preferLargestImageUrl(url) {
+  if (!url) return url
+  url = url.replace(/\/-\d+x\d+\//, '/')
+  return url
+}
+
 function extractImage(item) {
   if (item.enclosure?.url && item.enclosure?.type?.startsWith('image/')) {
-    return decodeHtmlEntities(item.enclosure.url)
+    return preferLargestImageUrl(decodeHtmlEntities(item.enclosure.url))
   }
-  if (item['media:content']?.$?.url) {
-    return decodeHtmlEntities(item['media:content'].$.url)
+
+  const mc = item['media:content']
+  if (mc) {
+    const entries = Array.isArray(mc) ? mc : [mc]
+    let best = null
+    let bestWidth = 0
+    for (const entry of entries) {
+      const url = entry?.$?.url
+      if (!url) continue
+      if (entry.$.medium && entry.$.medium !== 'image') continue
+      const w = parseInt(entry.$.width, 10) || 0
+      if (w > bestWidth || !best) {
+        best = url
+        bestWidth = w
+      }
+    }
+    if (best) return preferLargestImageUrl(decodeHtmlEntities(best))
+    const last = entries[entries.length - 1]?.$?.url
+    if (last) return preferLargestImageUrl(decodeHtmlEntities(last))
   }
+
   const html = item.content || item.description || ''
   const match = html.match(/<img[^>]+src=["']([^"']+)["']/)
-  if (match) return decodeHtmlEntities(match[1])
+  if (match) return preferLargestImageUrl(decodeHtmlEntities(match[1]))
+
   return ''
 }
 
