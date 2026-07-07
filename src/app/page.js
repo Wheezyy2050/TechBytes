@@ -15,8 +15,8 @@ export default async function HomePage() {
     orderBy: { createdAt: 'desc' },
   })
 
-  const featured = posts[0]
-  const latest = posts.slice(1)
+  const featured = posts.find(p => !p.sourceUrl?.includes('gsmarena.com')) || posts[0]
+  const latest = posts.filter(p => p.id !== featured.id)
   const trending = posts.slice(0, 5)
 
   return (
