@@ -2,34 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --accent: #1a7a7a;
+  --accent-hover: #156565;
+  --text-primary: #1a1a1a;
+  --text-secondary: #555;
+  --text-muted: #6b6b6b;
+  --border: #e8e8e8;
+  --bg: #fafafa;
+  --bg-card: #ffffff;
+}
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #fafafa;
-  color: #111;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .prose h1 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
 .prose h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; margin-top: 2rem; }
 .prose h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; margin-top: 1.5rem; }
-.prose p { margin-bottom: 1rem; line-height: 1.8; color: #333; }
-.prose strong { color: #000; }
+.prose p { margin-bottom: 1rem; line-height: 1.8; color: var(--text-secondary); }
+.prose strong { color: var(--text-primary); }
 .prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
-.prose li { margin-bottom: 0.25rem; color: #333; }
-.prose code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 0.9em; color: #000; }
-.prose pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; margin-bottom: 1rem; border: 1px solid #e0e0e0; }
-.prose a { color: #000; text-decoration: underline; }
+.prose li { margin-bottom: 0.25rem; color: var(--text-secondary); }
+.prose code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 0.9em; color: var(--text-primary); }
+.prose pre { background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto; margin-bottom: 1rem; border: 1px solid var(--border); }
+.prose a { color: var(--accent); text-decoration: underline; }
 
 .placeholder-gradient {
   position: relative;
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 12px,
-      rgba(0,0,0,0.035) 12px,
-      rgba(0,0,0,0.035) 24px
-    ),
-    linear-gradient(135deg, #e0e0e0 0%, #c8c8c8 50%, #e0e0e0 100%);
+  background: linear-gradient(135deg, #e4e4e4 0%, #d0d0d0 50%, #e4e4e4 100%);
   overflow: hidden;
 }
 
@@ -37,5 +42,27 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.04) 0%, transparent 70%);
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 16px,
+    rgba(0,0,0,0.025) 16px,
+    rgba(0,0,0,0.025) 32px
+  );
 }
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tag-ai { color: #5b7fa5; }
+.tag-mobile { color: #7a8a9a; }
+.tag-web-dev { color: #7a9a7a; }
+.tag-security { color: #8a7f7a; }
+.tag-tech-news { color: #8a8a8a; }
+.tag-entertainment { color: #9a7a6a; }
+.tag-science { color: #6a8a7a; }

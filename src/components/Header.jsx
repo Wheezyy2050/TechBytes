@@ -3,14 +3,13 @@ import Link from 'next/link'
 
 export default function Header() {
   return (
-    <header className="border-b border-[#e0e0e0] px-10 py-6 flex items-center justify-between bg-white">
-      <Link href="/" className="font-bold text-lg tracking-tight text-black">
-        Tech<span className="text-black">Bytes</span>
+    <header className="border-b border-[var(--border)] px-6 md:px-10 py-5 flex items-center justify-between bg-white">
+      <Link href="/" className="text-lg font-bold tracking-tight text-[var(--text-primary)]">
+        Tech<span className="text-[var(--accent)]">Bytes</span>
       </Link>
-      <nav className="flex gap-8 text-sm text-black">
-        <Link href="/" className="hover:underline">Home</Link>
-        <a href="https://github.com/Wheezyy2050" target="_blank" rel="noreferrer" className="hover:underline">GitHub</a>
-        <a href="https://linkedin.com/in/churchillmgamba" target="_blank" rel="noreferrer" className="hover:underline">LinkedIn</a>
+      <nav className="flex gap-6 text-sm text-[var(--text-muted)]">
+        <Link href="/" className="hover:text-[var(--accent)] transition-colors">Home</Link>
+        <a href="https://github.com/Wheezyy2050" target="_blank" rel="noreferrer" className="hover:text-[var(--accent)] transition-colors">GitHub</a>
       </nav>
     </header>
   )

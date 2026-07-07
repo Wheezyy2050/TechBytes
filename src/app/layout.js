@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
       <body>
         <Header />
         <main className="min-h-screen">{children}</main>
-        <footer className="border-t border-[#e0e0e0] py-10 px-10 text-center text-sm text-[#4a4a4a]">
+        <footer className="border-t border-[var(--border)] py-10 px-6 md:px-10 text-center text-sm text-[var(--text-muted)]">
           &copy; {new Date().getFullYear()} TechBytes
         </footer>
       </body>
