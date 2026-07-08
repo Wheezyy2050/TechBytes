@@ -118,7 +118,7 @@ function extractImage(item) {
 }
 
 export async function GET() {
-  const results = { fetched: 0, skipped: 0, published: 0, errors: [] }
+  const results = { fetched: 0, skipped: 0, published: 0 }
 
   for (const cat of CATEGORIES) {
     await prisma.category.upsert({
@@ -176,7 +176,7 @@ export async function GET() {
         results.published++
       }
     } catch (err) {
-      results.errors.push(`${feed.url}: ${err.message}`)
+      console.error(`Cron error — ${feed.url}: ${err.message}`)
     }
   }
 
