@@ -21,18 +21,25 @@ model Category {
 }
 
 model Post {
-  id             Int      @id @default(autoincrement())
+  id             Int        @id @default(autoincrement())
   title          String
-  slug           String   @unique
+  slug           String     @unique
   content        String
   excerpt        String
-  featuredImage  String   @default("")
-  published      Boolean  @default(true)
-  author         String   @default("")
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  featuredImage  String     @default("")
+  published      Boolean    @default(true)
+  author         String     @default("")
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
   categoryId     Int?
-  category       Category? @relation(fields: [categoryId], references: [id])
-  sourceUrl      String   @default("")
-  sourceName     String   @default("")
+  category       Category?  @relation(fields: [categoryId], references: [id])
+  sourceUrl      String     @default("")
+  sourceName     String     @default("")
+}
+
+model Subscriber {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
 }

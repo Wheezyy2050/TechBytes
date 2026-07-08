@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma'
 import PostCard from '@/components/PostCard'
+import NewsletterSubscribe from '@/components/NewsletterSubscribe'
 import { decodeHtmlEntities } from '@/lib/utils'
 
 function formatDate(date) {
@@ -107,28 +108,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* ── Newsletter ── */}
-          <div className="border-t border-[var(--border)] pt-8">
-            <h3 className="text-sm font-semibold mb-2 text-[var(--text-primary)]">
-              Stay Updated
-            </h3>
-            <p className="text-sm text-[var(--text-muted)] mb-4 leading-relaxed">
-              Get the latest tech news delivered to your inbox.
-            </p>
-            <form className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 min-w-0 px-3 py-2.5 text-sm border border-[#d0d0d0] bg-white text-[var(--text-primary)] placeholder:text-[#b0b0b0] focus:outline-none focus:border-[var(--accent)] transition-colors"
-              />
-              <button
-                type="submit"
-                className="px-5 py-2.5 text-sm font-medium bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)] transition-colors whitespace-nowrap"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
+          <NewsletterSubscribe />
 
         </aside>
       </div>

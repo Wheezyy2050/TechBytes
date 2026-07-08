@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import Parser from 'rss-parser'
 import prisma from '@/lib/prisma'
+import { sendDigest } from '@/lib/email'
 
 const parser = new Parser({
   customFields: {
@@ -119,6 +120,7 @@ function extractImage(item) {
 
 export async function GET() {
   const results = { fetched: 0, skipped: 0, published: 0 }
+  const newPosts = []
 
   for (const cat of CATEGORIES) {
     await prisma.category.upsert({
@@ -173,11 +175,16 @@ export async function GET() {
           },
         })
 
+        newPosts.push({ title, slug, excerpt, author: 'TechBytes Curated', sourceName })
         results.published++
       }
     } catch (err) {
       console.error(`Cron error — ${feed.url}: ${err.message}`)
     }
+  }
+
+  if (newPosts.length > 0) {
+    await sendDigest(newPosts)
   }
 
   return NextResponse.json({
