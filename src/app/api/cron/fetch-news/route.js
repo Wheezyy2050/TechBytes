@@ -41,8 +41,8 @@ function mapCategory(title, description) {
   const text = `${title} ${description}`.toLowerCase()
 
   if (/\b(pixel|galaxy|iphone|oneplus|xiaomi|huawei|oppo|vivo|nothing phone|motorola|nokia|sony|asus rog|foldable|smartphone|android|ios|ipados|app store|google play|ipad|samsung|5g|tablet)\b/.test(text)) return 'mobile'
-  if (/\b(gpt|openai|chatgpt|claude|gemini|llama|machine learning|deep learning|neural network|llm|large language model)\b/.test(text)) return 'ai'
   if (/\b(hack|breach|vulnerability|cyber|malware|ransomware|security|privacy|encryption|phishing|zero day|exploit)\b/.test(text)) return 'security'
+  if (/\b(gpt|openai|chatgpt|claude|anthropic|midjourney|llama|machine learning|deep learning|neural network|llm|large language model|stable diffusion|dall.e)\b/.test(text)) return 'ai'
   if (/\b(react|javascript|typescript|next\.js|node\.js|npm|css|frontend|backend|api|web dev|webpack|babel)\b/.test(text)) return 'web-dev'
   if (/\b(movie|film|review|trailer|hollywood|netflix|disney|game|gaming|playstation|xbox|nintendo|streaming|tv show|entertainment|album|song|music)\b/.test(text)) return 'entertainment'
   if (/\b(science|research|study|space|nasa|physics|biology|climate|quantum|dna|gene|astronomy|particle)\b/.test(text)) return 'science'
