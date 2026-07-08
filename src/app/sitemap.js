@@ -10,7 +10,7 @@ export default async function sitemap() {
       orderBy: { updatedAt: 'desc' },
     }),
     prisma.category.findMany({
-      select: { slug: true, updatedAt: true },
+      select: { slug: true },
     }),
   ])
 
@@ -23,7 +23,7 @@ export default async function sitemap() {
     },
     ...categories.map(cat => ({
       url: `${BASE_URL}/category/${cat.slug}`,
-      lastModified: cat.updatedAt,
+      lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.7,
     })),
