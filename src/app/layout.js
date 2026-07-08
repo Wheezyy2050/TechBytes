@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen pt-16">{children}</main>
         <footer className="border-t border-[var(--border)] py-10 px-6 md:px-10 text-center text-sm text-[var(--text-muted)]">
           &copy; {new Date().getFullYear()} TechBytes
         </footer>
