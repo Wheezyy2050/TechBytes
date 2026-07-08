@@ -85,7 +85,7 @@ export default async function HomePage() {
         </div>
 
         {/* ═══ Sidebar ═══ */}
-        <aside className="space-y-10 lg:sticky lg:top-8 lg:self-start">
+        <aside className="space-y-10 lg:sticky lg:top-20 lg:self-start">
 
           {/* ── Trending ── */}
           <div>
