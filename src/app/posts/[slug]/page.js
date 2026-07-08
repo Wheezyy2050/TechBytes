@@ -77,9 +77,9 @@ export default async function PostPage({ params }) {
 
       {/* ── Category ── */}
       {post.category && (
-        <span className={`category-tag tag-${post.category.slug} mb-4 block`}>
+        <Link href={`/category/${post.category.slug}`} className={`category-tag tag-${post.category.slug} mb-4 block hover:opacity-70 transition-opacity`}>
           {post.category.name}
-        </span>
+        </Link>
       )}
 
       {/* ── Headline ── */}

@@ -1,4 +1,5 @@
 import prisma from '@/lib/prisma'
+import Link from 'next/link'
 import PostCard from '@/components/PostCard'
 import NewsletterSubscribe from '@/components/NewsletterSubscribe'
 import { decodeHtmlEntities } from '@/lib/utils'
@@ -10,11 +11,17 @@ function formatDate(date) {
 }
 
 export default async function HomePage() {
-  const posts = await prisma.post.findMany({
-    where: { published: true },
-    include: { category: true },
-    orderBy: { createdAt: 'desc' },
-  })
+  const [posts, categories] = await Promise.all([
+    prisma.post.findMany({
+      where: { published: true },
+      include: { category: true },
+      orderBy: { createdAt: 'desc' },
+    }),
+    prisma.category.findMany({
+      include: { _count: { select: { posts: { where: { published: true } } } } },
+      orderBy: { name: 'asc' },
+    }),
+  ])
 
   const featured = posts.find(p => !p.sourceUrl?.includes('gsmarena.com')) || posts[0]
   const latest = posts.filter(p => p.id !== featured.id)
@@ -36,9 +43,9 @@ export default async function HomePage() {
             </div>
             <div className="max-w-3xl">
               {featured.category && (
-                <span className={`category-tag tag-${featured.category.slug}`}>
+                <Link href={`/category/${featured.category.slug}`} className={`category-tag tag-${featured.category.slug} hover:opacity-70 transition-opacity`}>
                   {featured.category.name}
-                </span>
+                </Link>
               )}
               <h1 className="text-3xl md:text-5xl font-bold leading-tight mt-3 mb-4 text-[var(--text-primary)]">
                 {featured.title}
@@ -104,6 +111,25 @@ export default async function HomePage() {
                     </span>
                   </div>
                 </a>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Categories ── */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-[var(--text-muted)] mb-4">
+              Categories
+            </h3>
+            <div className="space-y-1.5">
+              {categories.map(cat => (
+                <Link
+                  key={cat.id}
+                  href={`/category/${cat.slug}`}
+                  className="flex items-center justify-between text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors py-1"
+                >
+                  <span>{cat.name}</span>
+                  <span className="text-xs text-[var(--text-muted)]">{cat._count.posts}</span>
+                </Link>
               ))}
             </div>
           </div>

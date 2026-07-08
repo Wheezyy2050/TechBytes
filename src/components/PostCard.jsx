@@ -7,6 +7,16 @@ export default function PostCard({ post, index, total }) {
   })
   const imageUrl = decodeHtmlEntities(post.featuredImage)
 
+  const categoryTag = post.category && (
+    <Link
+      href={`/category/${post.category.slug}`}
+      className={`category-tag tag-${post.category.slug} hover:opacity-70 transition-opacity`}
+      onClick={e => e.stopPropagation()}
+    >
+      {post.category.name}
+    </Link>
+  )
+
   return (
     <div>
       <Link href={`/posts/${post.slug}`} className="block group py-6">
@@ -16,11 +26,7 @@ export default function PostCard({ post, index, total }) {
               <img src={imageUrl} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="flex-1 min-w-0">
-              {post.category && (
-                <span className={`category-tag tag-${post.category.slug}`}>
-                  {post.category.name}
-                </span>
-              )}
+              {categoryTag}
               <h2 className="text-base md:text-lg font-bold leading-snug mt-1 mb-1.5 text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">
                 {post.title}
               </h2>
@@ -36,11 +42,7 @@ export default function PostCard({ post, index, total }) {
           </div>
         ) : (
           <div>
-            {post.category && (
-              <span className={`category-tag tag-${post.category.slug}`}>
-                {post.category.name}
-              </span>
-            )}
+            {categoryTag}
             <h2 className="text-base md:text-lg font-bold leading-snug mt-1 mb-1.5 text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">
               {post.title}
             </h2>
