@@ -18,6 +18,9 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
   },
+  verification: {
+    google: 'E0Lem9VD6FOu5Qr119rBMWNBoTY2U7Uin7NqdfgPres',
+  },
 }
 
 export default function RootLayout({ children }) {
