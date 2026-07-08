@@ -4,10 +4,44 @@ import Markdown from 'react-markdown'
 import Link from 'next/link'
 import { decodeHtmlEntities } from '@/lib/utils'
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tech-bytes-tau.vercel.app'
+
 function formatDate(date) {
   return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric', month: 'long', day: 'numeric',
   })
+}
+
+export async function generateMetadata({ params }) {
+  const post = await prisma.post.findUnique({
+    where: { slug: params.slug },
+  })
+  if (!post) return {}
+
+  const excerpt = post.excerpt.length > 155
+    ? post.excerpt.slice(0, 152) + '...'
+    : post.excerpt
+
+  const imageUrl = decodeHtmlEntities(post.featuredImage)
+
+  return {
+    title: post.title,
+    description: excerpt,
+    alternates: { canonical: `${BASE_URL}/posts/${post.slug}` },
+    openGraph: {
+      title: post.title,
+      description: excerpt,
+      url: `${BASE_URL}/posts/${post.slug}`,
+      type: 'article',
+      ...(imageUrl && { images: [{ url: imageUrl, width: 1200, height: 630 }] }),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: excerpt,
+      ...(imageUrl && { images: [imageUrl] }),
+    },
+  }
 }
 
 export default async function PostPage({ params }) {

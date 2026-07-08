@@ -1,9 +1,23 @@
 import './globals.css'
 import Header from '@/components/Header'
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tech-bytes-tau.vercel.app'
+
 export const metadata = {
-  title: 'Tech Bytes — Latest Tech News',
-  description: 'Your daily dose of tech news — AI, web dev, cybersecurity, and more.',
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: 'TechBytes — Latest Tech News',
+    template: '%s — TechBytes',
+  },
+  description: 'Your daily dose of tech news covering mobile, AI, cybersecurity, web development, and more.',
+  openGraph: {
+    siteName: 'TechBytes',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export default function RootLayout({ children }) {
